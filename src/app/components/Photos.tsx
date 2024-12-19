@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
-import { FaSearch, FaTimes, FaCamera, FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import { FaSearch, FaChevronRight, FaChevronLeft, FaTimes, FaCamera, FaChevronUp, FaChevronDown } from 'react-icons/fa';
 
 export default function Photos() {
   const [selectedImage, setSelectedImage] = useState<number>(1);
@@ -20,7 +20,7 @@ export default function Photos() {
     },
     {
       id: 2,
-      src: '/images/gallery/cm-2.jpg', 
+      src: '/images/gallery/gallery-2.jpg', 
       caption: 'Meeting with Citizens at Public Event',
       date: 'September 5, 2023',
       category: 'public',
@@ -28,7 +28,7 @@ export default function Photos() {
     },
     {
       id: 3,
-      src: '/images/gallery/cm-3.jpg',
+      src: '/images/gallery/gallery-3.jpg',
       caption: 'Inauguration of New Hospital Wing',
       date: 'October 12, 2023',
       category: 'healthcare',
@@ -36,7 +36,7 @@ export default function Photos() {
     },
     {
       id: 4,
-      src: '/images/gallery/cm-4.jpg',
+      src: '/images/gallery/gallery-7.jpg',
       caption: 'Cultural Program at Agartala',
       date: 'November 20, 2023',
       category: 'culture',
@@ -44,7 +44,7 @@ export default function Photos() {
     },
     {
       id: 5,
-      src: '/images/gallery/cm-5.jpg',
+      src: '/images/gallery/gallery-8.jpg',
       caption: 'Education Summit 2024',
       date: 'January 15, 2024',
       category: 'education',
@@ -52,12 +52,84 @@ export default function Photos() {
     },
     {
       id: 6,
-      src: '/images/gallery/cm-6.jpg',
+      src: '/images/gallery/gallery-9.jpg',
       caption: 'Republic Day Celebrations',
       date: 'January 26, 2024',
       category: 'events',
       size: 'small'
-    }
+    },
+    {
+        id: 7,
+        src: '/images/gallery/gallery-9.jpg',
+        caption: 'Republic Day Celebrations',
+        date: 'January 26, 2024',
+        category: 'events',
+        size: 'small'
+      },
+      {
+        id: 8,
+        src: '/images/gallery/gallery-9.jpg',
+        caption: 'Republic Day Celebrations',
+        date: 'January 26, 2024',
+        category: 'events',
+        size: 'small'
+      },
+      {
+        id: 9,
+        src: '/images/gallery/gallery-9.jpg',
+        caption: 'Republic Day Celebrations',
+        date: 'January 26, 2024',
+        category: 'events',
+        size: 'small'
+      },
+      {
+        id: 10,
+        src: '/images/gallery/gallery-9.jpg',
+        caption: 'Republic Day Celebrations',
+        date: 'January 26, 2024',
+        category: 'events',
+        size: 'small'
+      },
+      {
+        id: 11,
+        src: '/images/gallery/gallery-9.jpg',
+        caption: 'Republic Day Celebrations',
+        date: 'January 26, 2024',
+        category: 'events',
+        size: 'small'
+      },
+      {
+        id: 12,
+        src: '/images/gallery/gallery-9.jpg',
+        caption: 'Republic Day Celebrations',
+        date: 'January 26, 2024',
+        category: 'events',
+        size: 'small'
+      },
+      {
+        id: 13,
+        src: '/images/gallery/gallery-9.jpg',
+        caption: 'Republic Day Celebrations',
+        date: 'January 26, 2024',
+        category: 'events',
+        size: 'small'
+      },
+      {
+        id: 14,
+        src: '/images/gallery/gallery-9.jpg',
+        caption: 'Republic Day Celebrations',
+        date: 'January 26, 2024',
+        category: 'events',
+        size: 'small'
+      },
+      {
+        id: 15,
+        src: '/images/gallery/gallery-9.jpg',
+        caption: 'Republic Day Celebrations',
+        date: 'January 26, 2024',
+        category: 'events',
+        size: 'small'
+      }
   ];
 
   const categories = ['all', 'events', 'public', 'healthcare', 'culture', 'education'];
@@ -81,22 +153,25 @@ export default function Photos() {
   };
 
   return (
-    <section className="py-24 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-gray-50 to-gray-100">
-      <div className="max-w-5xl mx-auto"> {/* Changed from max-w-7xl to max-w-5xl */}
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-20 font-serif">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#f37216] to-[#5DB996] relative inline-flex items-center gap-4">
+    <section className="py-20 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-gray-50 to-gray-100">
+      <div className="max-w-7xl mx-auto">
+        
+        <h2 className="text-2xl md:text-2xl font-bold font-serif text-left">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#f37216] to-[#5DB996] relative inline-flex items-center gap-4 border-2 border-[#f37216] rounded-lg p-2">
             <FaCamera className="text-[#f37216]" />
             Photo Gallery
-            <div className="absolute w-32 h-1 bg-gradient-to-r from-[#f37216] to-[#5DB996] bottom-0 left-1/2 transform -translate-x-1/2 mt-4 rounded-full"></div>
           </span>
         </h2>
 
-        <div className="flex justify-center gap-4 mb-12 flex-wrap">
+        <div className="w-full h-[2px] bg-[#f37216] mb-5 rounded-full"></div>
+
+
+        <div className="flex justify-center gap-2 mb-8 flex-wrap">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-8 py-3 rounded-full capitalize transition-all duration-300 transform hover:scale-105 ${
+              className={`text-xs px-5 py-3 rounded-full capitalize transition-all duration-300 transform hover:scale-105 ${
                 selectedCategory === category
                   ? 'bg-gradient-to-r from-[#f37216] to-[#5DB996] text-white shadow-xl'
                   : 'bg-white text-gray-600 hover:bg-[#f37216] hover:text-white shadow-md'
@@ -107,22 +182,27 @@ export default function Photos() {
           ))}
         </div>
 
-        <div className="flex gap-8">
+        <div className="grid grid-cols-12 gap-4">
           {/* Main Image */}
-          <div className="flex-grow">
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg">
+          <div className="col-span-6">
+            <div 
+              className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg cursor-pointer"
+              onClick={toggleLightbox}
+            >
               <Image
                 src={photos.find(p => p.id === selectedImage)?.src || ''}
                 alt={photos.find(p => p.id === selectedImage)?.caption || ''}
                 fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw" /* Changed from 75vw to 50vw */
+                className="object-cover hover:scale-105 transition-transform duration-300"
+                sizes="600px"
+                priority
+                quality={100}
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
                 <h3 className="text-white text-xl font-semibold">
                   {photos.find(p => p.id === selectedImage)?.caption}
                 </h3>
-                <p className="text-white/80">
+                <p className="text-white/90">
                   {photos.find(p => p.id === selectedImage)?.date}
                 </p>
               </div>
@@ -130,22 +210,22 @@ export default function Photos() {
           </div>
 
           {/* Thumbnail Navigation */}
-          <div className="w-36 flex flex-col"> {/* Changed from w-48 to w-36 */}
+          <div className="col-span-6 flex h-full">
             <button 
               onClick={scrollUp}
-              className="p-2 bg-white rounded-full shadow-md text-[#f37216] hover:bg-[#f37216] hover:text-white mb-4"
+              className="p-2 bg-white rounded-full shadow-md text-[#f37216] hover:bg-[#f37216] hover:text-white mr-4 self-center"
               disabled={startIndex === 0}
             >
-              <FaChevronUp />
+              <FaChevronLeft />
             </button>
             
             <div className="flex-grow overflow-hidden">
-              <div className="space-y-4">
-                {filteredPhotos.slice(startIndex, startIndex + 4).map((photo) => (
+              <div className="grid grid-cols-4 gap-4 h-full">
+                {filteredPhotos.slice(startIndex, startIndex + 12).map((photo, index) => (
                   <div 
                     key={photo.id}
                     onClick={() => setSelectedImage(photo.id)}
-                    className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer ${
+                    className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer transform hover:scale-105 transition-all duration-300 ${
                       selectedImage === photo.id ? 'ring-2 ring-[#f37216]' : ''
                     }`}
                   >
@@ -154,7 +234,10 @@ export default function Photos() {
                       alt={photo.caption}
                       fill
                       className="object-cover"
-                      sizes="90px" /* Changed from 120px to 90px */
+                      sizes="180px"
+                      quality={100}
+                      priority
+                      loading="eager"
                     />
                   </div>
                 ))}
@@ -163,10 +246,10 @@ export default function Photos() {
 
             <button 
               onClick={scrollDown}
-              className="p-2 bg-white rounded-full shadow-md text-[#f37216] hover:bg-[#f37216] hover:text-white mt-4"
-              disabled={startIndex + 4 >= filteredPhotos.length}
+              className="p-2 bg-white rounded-full shadow-md text-[#f37216] hover:bg-[#f37216] hover:text-white ml-4 self-center"
+              disabled={startIndex + 12 >= filteredPhotos.length}
             >
-              <FaChevronDown />
+              <FaChevronRight />
             </button>
           </div>
         </div>
@@ -181,13 +264,13 @@ export default function Photos() {
           >
             <FaTimes size={32} />
           </button>
-          <div className="relative w-full max-w-4xl aspect-[4/3]"> {/* Changed from max-w-6xl to max-w-4xl */}
+          <div className="relative w-full max-w-6xl aspect-[4/3]">
             <Image
               src={photos.find(p => p.id === selectedImage)?.src || ''}
               alt={photos.find(p => p.id === selectedImage)?.caption || ''}
               fill
               className="object-contain"
-              sizes="90vw" /* Changed from 100vw to 90vw */
+              sizes="100vw"
             />
           </div>
         </div>

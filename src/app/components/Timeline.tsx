@@ -13,7 +13,7 @@ const Timeline = () => {
       year: '2020',
       title: 'State BJP President',
       description: 'Led BJP Tripura State Unit',
-      image: '/images/timeline/manik-saha.png',
+      image: '/images/slider/slider-1.jpg',
       achievements: 'Strengthened party organization at grassroots level'
     },
     {
@@ -70,17 +70,17 @@ const Timeline = () => {
   };
 
   return (
-    <section className="py-20 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-10 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-20 font-serif">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#f37216] to-[#5DB996]">
-            Political Journey of Dr. Manik Saha
+        <h3 className="text-2xl md:text-2xl font-bold mb-10 font-serif text-left">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#f37216] to-[#5DB996]  border-2 border-[#f37216] p-2 rounded-lg">
+            Journey
           </span>
-        </h2>
+        </h3>
 
         <div className="relative">
           {/* Timeline Navigation */}
-          <div className="flex items-center justify-between mb-16">
+          <div className="flex items-center justify-between mb-5">
             <button 
               onClick={scrollLeft}
               className={`p-4 rounded-lg bg-white shadow-md text-[#f37216] hover:bg-[#f37216] hover:text-white transition-all duration-300 ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
@@ -89,7 +89,7 @@ const Timeline = () => {
               <FaChevronLeft size={20} />
             </button>
 
-            <div className="flex-1 mx-8">
+            <div className="flex-1 mx-5">
               <div className="relative h-1 bg-gray-200 rounded">
                 <div 
                   className="absolute h-full bg-[#f37216] rounded transition-all duration-500"
@@ -126,15 +126,16 @@ const Timeline = () => {
           </div>
 
           {/* Event Content */}
-          <div className="bg-white rounded-2xl shadow-xl p-12 transition-all duration-500">
+          <div className="bg-white rounded-2xl shadow-xl p-5 transition-all duration-500">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="relative aspect-square max-w-md mx-auto">
                 <Image
                   src={timelineEvents[currentIndex].image}
                   alt={timelineEvents[currentIndex].title}
-                  fill
+                  width={400}
+                  height={400}
                   className="rounded-2xl object-cover shadow-lg"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
                 />
               </div>
               
