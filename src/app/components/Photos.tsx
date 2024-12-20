@@ -60,7 +60,7 @@ export default function Photos() {
     },
     {
         id: 7,
-        src: '/images/gallery/gallery-9.jpg',
+        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
         caption: 'Republic Day Celebrations',
         date: 'January 26, 2024',
         category: 'events',
@@ -68,7 +68,7 @@ export default function Photos() {
       },
       {
         id: 8,
-        src: '/images/gallery/gallery-9.jpg',
+        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
         caption: 'Republic Day Celebrations',
         date: 'January 26, 2024',
         category: 'events',
@@ -76,7 +76,7 @@ export default function Photos() {
       },
       {
         id: 9,
-        src: '/images/gallery/gallery-9.jpg',
+        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
         caption: 'Republic Day Celebrations',
         date: 'January 26, 2024',
         category: 'events',
@@ -84,7 +84,7 @@ export default function Photos() {
       },
       {
         id: 10,
-        src: '/images/gallery/gallery-9.jpg',
+        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
         caption: 'Republic Day Celebrations',
         date: 'January 26, 2024',
         category: 'events',
@@ -92,7 +92,7 @@ export default function Photos() {
       },
       {
         id: 11,
-        src: '/images/gallery/gallery-9.jpg',
+        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
         caption: 'Republic Day Celebrations',
         date: 'January 26, 2024',
         category: 'events',
@@ -100,7 +100,7 @@ export default function Photos() {
       },
       {
         id: 12,
-        src: '/images/gallery/gallery-9.jpg',
+        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
         caption: 'Republic Day Celebrations',
         date: 'January 26, 2024',
         category: 'events',
@@ -108,7 +108,7 @@ export default function Photos() {
       },
       {
         id: 13,
-        src: '/images/gallery/gallery-9.jpg',
+        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
         caption: 'Republic Day Celebrations',
         date: 'January 26, 2024',
         category: 'events',
@@ -116,7 +116,7 @@ export default function Photos() {
       },
       {
         id: 14,
-        src: '/images/gallery/gallery-9.jpg',
+        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
         caption: 'Republic Day Celebrations',
         date: 'January 26, 2024',
         category: 'events',
@@ -124,13 +124,13 @@ export default function Photos() {
       },
       {
         id: 15,
-        src: '/images/gallery/gallery-9.jpg',
+        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
         caption: 'Republic Day Celebrations',
         date: 'January 26, 2024',
         category: 'events',
         size: 'small'
       }
-  ];
+    ];
 
   const categories = ['all', 'events', 'public', 'healthcare', 'culture', 'education'];
 
