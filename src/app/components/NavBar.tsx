@@ -20,9 +20,9 @@ import {
 import { ChevronDown, Lock, Activity, Flash, Server, TagUser, Scale } from './Icons';
 
 export default function App() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
   const [isDetailsMenuOpen, setIsDetailsMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const icons = {
     chevron: <ChevronDown fill="currentColor" size={16} height={16} width={16} />,
@@ -33,17 +33,28 @@ export default function App() {
     server: <Server className="text-success" fill="currentColor" size={30} height={30} width={30} />,
     user: <TagUser className="text-danger" fill="currentColor" size={100} height={30} width={100} />,
   };
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const toggleSection = (section: string) => {
+    setExpandedSections((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
   };
 
-  const toggleSearch = () => {
-    setIsSearchOpen(!isSearchOpen);
-  };
+  const renderToggleButton = (section: string) => (
+    <button
+      className="text-lg font-bold"
+      onClick={() => toggleSection(section)}
+    >
+      {expandedSections[section] ? "−" : "+"}
+    </button>
+  );
 
   const toggleDetailsMenu = () => {
     setIsDetailsMenuOpen(!isDetailsMenuOpen);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
@@ -64,12 +75,17 @@ export default function App() {
                 Professor (Dr.) Manik Saha
               </span>
             </div>
+            <div className="flex md:hidden">
+              <Button onClick={toggleMobileMenu} className="p-2 bg-transparent text-white text-2xl">
+                {isMobileMenuOpen ? '✖' : '☰'}
+              </Button>
+            </div>
           </NavbarBrand>
         </Navbar>
       </div>
 
       {/* Right Section */}
-      <div className="w-full md:w-[65%] bg-[#5DB996] relative z-0">
+      <div className="w-full md:w-[65%] bg-[#5DB996] relative z-0 hidden md:block">
         <Navbar className="bg-transparent">
           <NavbarContent className="hidden sm:flex gap-4" justify="end">
             <NavbarItem isActive>
@@ -81,7 +97,6 @@ export default function App() {
                 Home
               </Link>
             </NavbarItem>
-
             <NavbarItem>
               <Link
                 href="#"
@@ -90,7 +105,6 @@ export default function App() {
                 About
               </Link>
             </NavbarItem>
-
             <Dropdown>
               <NavbarItem>
                 <DropdownTrigger>
@@ -123,7 +137,6 @@ export default function App() {
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
-
             <NavbarItem>
               <Link
                 href="#"
@@ -132,7 +145,6 @@ export default function App() {
                 Press
               </Link>
             </NavbarItem>
-
             <NavbarItem>
               <Link
                 href="#"
@@ -143,38 +155,132 @@ export default function App() {
             </NavbarItem>
           </NavbarContent>
 
-          {/* Menu Toggle Button */}
+          {/* Menu Button */}
           <div className="flex">
             <Button onClick={toggleDetailsMenu} className="p-2 bg-transparent text-white text-2xl">
               {isDetailsMenuOpen ? '✖' : '☰'}
             </Button>
           </div>
-
-          {/* Details Menu Modal */}
-          {isDetailsMenuOpen && (
-            <Modal open={isDetailsMenuOpen} onClose={toggleDetailsMenu}>
-              <ModalHeader className="text-xl font-bold">Details Menu</ModalHeader>
-              <ModalBody>
-                <NavbarContent className="flex flex-col gap-4">
-                  <Link href="#" onClick={toggleDetailsMenu} className="text-base py-2">
-                    Customers
-                  </Link>
-                  <Link href="#" onClick={toggleDetailsMenu} className="text-base py-2">
-                    Integrations
-                  </Link>
-                  <Link href="#" onClick={toggleDetailsMenu} className="text-base py-2">
-                    Login
-                  </Link>
-                </NavbarContent>
-              </ModalBody>
-              <ModalFooter>
-                <Button onClick={toggleDetailsMenu}>
-                  Close
-                </Button>
-              </ModalFooter>
-            </Modal>
-          )}
         </Navbar>
+      </div>
+
+      {/* Full-Screen Menu */}
+      <div className={`fixed inset-0 z-50 bg-[#f2f2f2] transition-opacity duration-300 ease-in-out ${isDetailsMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}>
+        <div className="container mx-auto px-4">
+          <div className="flex justify-end pt-4">
+            <Button
+              onClick={toggleDetailsMenu}
+              className="text-black text-4xl font-bold hover:text-gray-600 p-2 bg-transparent transition-colors duration-200"
+            >
+              ✖
+            </Button>
+          </div>
+          <div className="grid grid-cols-4 gap-8 mt-16 px-8">
+            {/* First Row */}
+            <div className="flex flex-col gap-4">
+              <h2 className="text-2xl font-bold mb-4">PRESS</h2>
+              <Link href="#" className="text-lg hover:text-gray-600">News</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Interviews</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Editorials</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Critic</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Press Release</Link>
+            </div>
+            <div className="flex flex-col gap-4">
+              <h2 className="text-2xl font-bold mb-4">MY VIEWS</h2>
+              <Link href="#" className="text-lg hover:text-gray-600">Quotes</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Blogs</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Articles</Link>
+            </div>
+            <div className="flex flex-col gap-4">
+              <h2 className="text-2xl font-bold mb-4">GALLERY</h2>
+              <Link href="#" className="text-lg hover:text-gray-600">Timeline</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Election Rally</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Government Events</Link>
+            </div>
+            <div className="flex flex-col gap-4">
+              <h2 className="text-2xl font-bold mb-4">HOME</h2>
+              <Link href="#" className="text-lg hover:text-gray-600">Dashboard</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Overview</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Profile</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Settings</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Analytics</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Reports</Link>
+            </div>
+
+            {/* Second Row */}
+            <div className="flex flex-col gap-4">
+              <h2 className="text-2xl font-bold mb-4">EXPLORE</h2>
+              <Link href="#" className="text-lg hover:text-gray-600">Discover</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Trending</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Popular</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Featured</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Recommended</Link>
+            </div>
+            <div className="flex flex-col gap-4">
+              <h2 className="text-2xl font-bold mb-4">EVENTS</h2>
+              <Link href="#" className="text-lg hover:text-gray-600">Latest</Link>
+              <Link href="#" className="text-lg hover:text-gray-600">Upcoming Events</Link>
+            </div>
+            <div className="flex flex-col gap-4">
+              <h2 className="text-2xl font-bold mb-4">LATEST PRESS</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={`fixed inset-0 z-50 bg-[#f2f2f2] transition-transform duration-500 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="container mx-auto px-4">
+          <div className="flex justify-end pt-4">
+            <Button
+              onClick={toggleMobileMenu}
+              className="text-black text-2xl hover:text-gray-600 p-2 bg-transparent transition-colors duration-200 ease-in-out"
+            >
+              ✖
+            </Button>
+          </div>
+          <div className="flex flex-col items-start mt-16 px-8 transition-opacity duration-500 ease-in-out">
+            <Link href="#" className="text-lg text-black hover:text-gray-600 mb-4 transition-colors duration-200 ease-in-out transform hover:scale-105">Home</Link>
+            <Link href="#" className="text-lg text-black hover:text-gray-600 mb-4 transition-colors duration-200 ease-in-out transform hover:scale-105">About</Link>
+            {/* <Link
+  href="#"
+  className="text-lg text-black hover:text-gray-600 mb-4 transition-colors duration-200 ease-in-out transform hover:scale-105"
+>
+  Gallery
+</Link> */}
+            <Link href="#" className="text-lg text-black hover:text-gray-600 mb-4 transition-colors duration-200 ease-in-out transform hover:scale-105">Press</Link>
+            <Link href="#" className="text-lg text-black hover:text-gray-600 mb-4 transition-colors duration-200 ease-in-out transform hover:scale-105">Contact</Link>
+
+            {[
+              { title: "Gallery", items: ["Timeline", "Election Rally", "Government Events"] },
+              { title: "Press", items: ["News", "Interviews", "Editorials", "Critic", "Press Release"] },
+              { title: "My Views", items: ["Quotes", "Blogs", "Articles"] },
+              { title: "Explore", items: ["Discover", "Trending", "Popular", "Featured", "Recommended"] },
+              { title: "Events", items: ["Latest", "Upcoming Events"] },
+              { title: "Latest Press", items: [] }, // Add items if necessary
+            ].map(({ title, items }, index) => (
+              <div key={index} className="w-full mb-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-lg hover:text-gray-600 transition-colors duration-200 ease-in-out">
+                    {title}
+                  </span>
+                  {renderToggleButton(title)}
+                </div>
+                {expandedSections[title] && (
+                  <div className="m-0 py-[10px]">
+                    {items.map((item, idx) => (
+                      <Link href="#" key={idx} className="text-md hover:text-gray-600 mb-2 block">
+                        {item}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+
+          </div>
+        </div>
       </div>
     </div>
   );
