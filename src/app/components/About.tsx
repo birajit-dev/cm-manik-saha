@@ -22,7 +22,7 @@ export default function About() {
               inclusive growth, sustainable development, and the welfare of all citizens.
             </p>
             <Link 
-              href="/about-detailed" 
+              href="/about-manik-saha" 
               className="inline-block px-6 py-3 border-2 border-[#f37216] text-[#f37216] font-semibold rounded-lg 
                 hover:bg-[#5DB996] hover:text-white transition-colors duration-300 hover:scale-105 transform font-serif text-justify"
             >
