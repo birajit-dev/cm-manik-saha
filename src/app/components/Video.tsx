@@ -16,7 +16,7 @@ const Video = () => {
       url: 'https://www.youtube.com/embed/VIDEO_ID_1'
     },
     {
-      id: 2, 
+      id: 2,
       thumbnail: '/images/thumbnail/thumb-2.jpg',
       title: 'Development Project Launch',
       date: 'March 10, 2024',
@@ -24,12 +24,12 @@ const Video = () => {
     },
     {
       id: 3,
-      thumbnail: '/images/thumbnail/thumb-3.jpg', 
+      thumbnail: '/images/thumbnail/thumb-3.jpg',
       title: 'Interview on State Progress',
       date: 'March 5, 2024',
       url: 'https://www.youtube.com/embed/VIDEO_ID_3'
     },
-    
+
   ];
 
   const handleVideoClick = () => {
@@ -45,22 +45,22 @@ const Video = () => {
       <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl md:text-2xl font-bold mb-1 font-serif text-left">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#f37216] to-[#5DB996] relative border-2 border-[#f37216] rounded-lg p-2">
-            Video Gallery  
+            Video Gallery
           </span>
         </h2>
-     
 
-        <div className="w-full h-[2px] bg-[#f37216] mb-10 rounded-full"></div>
+
+        <div className="w-full h-[2px] bg-[#f37216] mb-10 rounded-full mt-4"></div>
 
 
         <div className="grid md:grid-cols-5 gap-12">
           {/* Main Video */}
           <div className="md:col-span-3 transform hover:scale-[1.02] transition-all duration-300">
-            <div 
+            <div
               className="relative aspect-video rounded-xl overflow-hidden shadow-2xl cursor-pointer"
               onClick={handleVideoClick}
             >
-              <img 
+              <img
                 src={videos.find(v => v.id === selectedVideo)?.thumbnail}
                 alt={videos.find(v => v.id === selectedVideo)?.title}
                 className="w-full h-full object-cover"
@@ -84,17 +84,16 @@ const Video = () => {
           {/* Video List */}
           <div className="md:col-span-2 space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar justify-center">
             {videos.map((video) => (
-              <div 
+              <div
                 key={video.id}
                 onClick={() => setSelectedVideo(video.id)}
-                className={`group flex gap-4 p-4 rounded-xl cursor-pointer transition-all duration-300 hover:bg-white hover:shadow-xl transform hover:-translate-y-1 ${
-                  selectedVideo === video.id 
-                    ? 'bg-white shadow-xl border-l-4 border-[#f37216]' 
+                className={`group flex gap-4 p-4 rounded-xl cursor-pointer transition-all duration-300 hover:bg-white hover:shadow-xl transform hover:-translate-y-1 ${selectedVideo === video.id
+                    ? 'bg-white shadow-xl border-l-4 border-[#f37216]'
                     : 'hover:border-l-4 hover:border-[#f37216]'
-                }`}
+                  }`}
               >
                 <div className="relative w-44 aspect-video rounded-lg overflow-hidden flex-shrink-0">
-                  <img 
+                  <img
                     src={video.thumbnail}
                     alt={video.title}
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
@@ -123,7 +122,7 @@ const Video = () => {
       {isPlaying && (
         <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
           <div className="relative w-full max-w-6xl aspect-video">
-            <button 
+            <button
               onClick={handleCloseVideo}
               className="absolute -top-12 right-0 text-white hover:text-[#f37216] transition-colors"
             >

@@ -58,22 +58,22 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col bg-[#f37216] md:flex-row w-full relative">
+    <div className="flex flex-col bg-[#ff7e54] md:flex-row w-full relative">
       {/* Left Section */}
-      <div className="w-full md:w-[35%] relative z-20 flex justify-end">
+      <div className="w-full md:w-[30%] relative z-20 flex justify-between">
         <Navbar className="bg-transparent">
-          <NavbarBrand className="justify-end items-center">
+          <NavbarBrand className="md:justify-end md:items-center justify-between items-center">
             <div className="flex items-center gap-2">
-              <Image
-                src="https://seeklogo.com/images/B/bjp-bhartiya-janta-party-logo-48FE892291-seeklogo.com.png"
-                alt="BJP Logo"
-                width={70}
-                height={60}
-                loading="eager"
+
+              <img
+                src="/images/nav/image1.png"
+                alt="Slide 1"
+                className="w-full h-full object-cover"
               />
-              <span className="text-xl font-extrabold font-serif tracking-wide text-white hover:text-gray-100 transition-colors">
+
+              {/* <span className="text-xl font-extrabold font-serif tracking-wide text-white hover:text-gray-100 transition-colors">
                 Professor (Dr.) Manik Saha
-              </span>
+              </span> */}
             </div>
             <div className="flex md:hidden">
               <Button onClick={toggleMobileMenu} className="p-2 bg-transparent text-white text-2xl">
@@ -85,7 +85,7 @@ export default function App() {
       </div>
 
       {/* Right Section */}
-      <div className="w-full md:w-[65%] bg-[#5DB996] relative z-0 hidden md:block">
+      <div className="w-full md:w-[70%] bg-[#ff7e54] relative z-0 hidden md:block">
         <Navbar className="bg-transparent">
           <NavbarContent className="hidden sm:flex gap-4" justify="end">
             <NavbarItem isActive>

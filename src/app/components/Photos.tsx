@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FaSearch, FaChevronRight, FaChevronLeft, FaTimes, FaCamera, FaChevronUp, FaChevronDown } from 'react-icons/fa';
 
@@ -8,6 +8,16 @@ export default function Photos() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const photos = [
     {
@@ -20,7 +30,7 @@ export default function Photos() {
     },
     {
       id: 2,
-      src: '/images/gallery/gallery-2.jpg', 
+      src: '/images/gallery/gallery-2.jpg',
       caption: 'Meeting with Citizens at Public Event',
       date: 'September 5, 2023',
       category: 'public',
@@ -59,83 +69,83 @@ export default function Photos() {
       size: 'small'
     },
     {
-        id: 7,
-        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
-        caption: 'Republic Day Celebrations',
-        date: 'January 26, 2024',
-        category: 'events',
-        size: 'small'
-      },
-      {
-        id: 8,
-        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
-        caption: 'Republic Day Celebrations',
-        date: 'January 26, 2024',
-        category: 'events',
-        size: 'small'
-      },
-      {
-        id: 9,
-        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
-        caption: 'Republic Day Celebrations',
-        date: 'January 26, 2024',
-        category: 'events',
-        size: 'small'
-      },
-      {
-        id: 10,
-        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
-        caption: 'Republic Day Celebrations',
-        date: 'January 26, 2024',
-        category: 'events',
-        size: 'small'
-      },
-      {
-        id: 11,
-        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
-        caption: 'Republic Day Celebrations',
-        date: 'January 26, 2024',
-        category: 'events',
-        size: 'small'
-      },
-      {
-        id: 12,
-        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
-        caption: 'Republic Day Celebrations',
-        date: 'January 26, 2024',
-        category: 'events',
-        size: 'small'
-      },
-      {
-        id: 13,
-        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
-        caption: 'Republic Day Celebrations',
-        date: 'January 26, 2024',
-        category: 'events',
-        size: 'small'
-      },
-      {
-        id: 14,
-        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
-        caption: 'Republic Day Celebrations',
-        date: 'January 26, 2024',
-        category: 'events',
-        size: 'small'
-      },
-      {
-        id: 15,
-        src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
-        caption: 'Republic Day Celebrations',
-        date: 'January 26, 2024',
-        category: 'events',
-        size: 'small'
-      }
-    ];
+      id: 7,
+      src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
+      caption: 'Republic Day Celebrations',
+      date: 'January 26, 2024',
+      category: 'events',
+      size: 'small'
+    },
+    {
+      id: 8,
+      src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
+      caption: 'Republic Day Celebrations',
+      date: 'January 26, 2024',
+      category: 'events',
+      size: 'small'
+    },
+    {
+      id: 9,
+      src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
+      caption: 'Republic Day Celebrations',
+      date: 'January 26, 2024',
+      category: 'events',
+      size: 'small'
+    },
+    {
+      id: 10,
+      src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
+      caption: 'Republic Day Celebrations',
+      date: 'January 26, 2024',
+      category: 'events',
+      size: 'small'
+    },
+    {
+      id: 11,
+      src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
+      caption: 'Republic Day Celebrations',
+      date: 'January 26, 2024',
+      category: 'events',
+      size: 'small'
+    },
+    {
+      id: 12,
+      src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
+      caption: 'Republic Day Celebrations',
+      date: 'January 26, 2024',
+      category: 'events',
+      size: 'small'
+    },
+    {
+      id: 13,
+      src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
+      caption: 'Republic Day Celebrations',
+      date: 'January 26, 2024',
+      category: 'events',
+      size: 'small'
+    },
+    {
+      id: 14,
+      src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
+      caption: 'Republic Day Celebrations',
+      date: 'January 26, 2024',
+      category: 'events',
+      size: 'small'
+    },
+    {
+      id: 15,
+      src: 'https://source.unsplash.com/1600x900/?Republic-Day-Celebrations',
+      caption: 'Republic Day Celebrations',
+      date: 'January 26, 2024',
+      category: 'events',
+      size: 'small'
+    }
+  ];
 
   const categories = ['all', 'events', 'public', 'healthcare', 'culture', 'education'];
 
-  const filteredPhotos = selectedCategory === 'all' 
-    ? photos 
+  const filteredPhotos = selectedCategory === 'all'
+    ? photos
     : photos.filter(photo => photo.category === selectedCategory);
 
   const toggleLightbox = () => setIsLightboxOpen(!isLightboxOpen);
@@ -147,15 +157,15 @@ export default function Photos() {
   };
 
   const scrollDown = () => {
-    if (startIndex + 4 < filteredPhotos.length) {
-      setStartIndex(startIndex + 1);
+    if (startIndex + (windowWidth > 640 ? 4 : 1) < filteredPhotos.length) {
+      setStartIndex(startIndex + (windowWidth > 640 ? 4 : 1));
     }
   };
 
   return (
     <section className="py-20 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-gray-50 to-gray-100">
       <div className="max-w-7xl mx-auto">
-        
+
         <h2 className="text-2xl md:text-2xl font-bold font-serif text-left">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#f37216] to-[#5DB996] relative inline-flex items-center gap-4 border-2 border-[#f37216] rounded-lg p-2">
             <FaCamera className="text-[#f37216]" />
@@ -163,7 +173,7 @@ export default function Photos() {
           </span>
         </h2>
 
-        <div className="w-full h-[2px] bg-[#f37216] mb-5 rounded-full"></div>
+        <div className="w-full h-[2px] bg-[#f37216] mb-5 rounded-full mt-4"></div>
 
 
         <div className="flex justify-center gap-2 mb-8 flex-wrap">
@@ -171,11 +181,10 @@ export default function Photos() {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`text-xs px-5 py-3 rounded-full capitalize transition-all duration-300 transform hover:scale-105 ${
-                selectedCategory === category
-                  ? 'bg-gradient-to-r from-[#f37216] to-[#5DB996] text-white shadow-xl'
-                  : 'bg-white text-gray-600 hover:bg-[#f37216] hover:text-white shadow-md'
-              }`}
+              className={`text-xs px-5 py-3 rounded-full capitalize transition-all duration-300 transform hover:scale-105 ${selectedCategory === category
+                ? 'bg-gradient-to-r from-[#f37216] to-[#5DB996] text-white shadow-xl'
+                : 'bg-white text-gray-600 hover:bg-[#f37216] hover:text-white shadow-md'
+                }`}
             >
               {category}
             </button>
@@ -185,7 +194,7 @@ export default function Photos() {
         <div className="grid grid-cols-12 gap-4">
           {/* Main Image */}
           <div className="col-span-6">
-            <div 
+            <div
               className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg cursor-pointer"
               onClick={toggleLightbox}
             >
@@ -211,23 +220,22 @@ export default function Photos() {
 
           {/* Thumbnail Navigation */}
           <div className="col-span-6 flex h-full">
-            <button 
+            <button
               onClick={scrollUp}
               className="p-2 bg-white rounded-full shadow-md text-[#f37216] hover:bg-[#f37216] hover:text-white mr-4 self-center"
               disabled={startIndex === 0}
             >
               <FaChevronLeft />
             </button>
-            
+
             <div className="flex-grow overflow-hidden">
-              <div className="grid grid-cols-4 gap-4 h-full">
-                {filteredPhotos.slice(startIndex, startIndex + 12).map((photo, index) => (
-                  <div 
+              <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 h-full ${windowWidth > 640 ? 'grid-cols-4' : 'grid-cols-1'}`}>
+                {filteredPhotos.slice(startIndex, startIndex + (windowWidth > 640 ? 12 : 1)).map((photo, index) => (
+                  <div
                     key={photo.id}
                     onClick={() => setSelectedImage(photo.id)}
-                    className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer transform hover:scale-105 transition-all duration-300 ${
-                      selectedImage === photo.id ? 'ring-2 ring-[#f37216]' : ''
-                    }`}
+                    className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer transform hover:scale-105 transition-all duration-300 ${selectedImage === photo.id ? 'ring-2 ring-[#f37216]' : ''
+                      }`}
                   >
                     <Image
                       src={photo.src}
@@ -242,12 +250,13 @@ export default function Photos() {
                   </div>
                 ))}
               </div>
+
             </div>
 
-            <button 
+            <button
               onClick={scrollDown}
               className="p-2 bg-white rounded-full shadow-md text-[#f37216] hover:bg-[#f37216] hover:text-white ml-4 self-center"
-              disabled={startIndex + 12 >= filteredPhotos.length}
+              disabled={startIndex + (windowWidth > 640 ? 12 : 1) >= filteredPhotos.length}
             >
               <FaChevronRight />
             </button>
@@ -258,7 +267,7 @@ export default function Photos() {
       {/* Lightbox */}
       {isLightboxOpen && (
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
-          <button 
+          <button
             onClick={toggleLightbox}
             className="absolute top-6 right-6 text-white hover:text-[#f37216] transition-colors"
           >
