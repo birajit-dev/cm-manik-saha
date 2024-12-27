@@ -163,7 +163,7 @@ export default function Photos() {
   };
 
   return (
-    <section className="py-20 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-gray-50 to-gray-100">
+    <section className="py-10 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-gray-50 to-gray-100">
       <div className="max-w-7xl mx-auto">
 
         <h2 className="text-2xl md:text-2xl font-bold font-serif text-left">
@@ -175,8 +175,7 @@ export default function Photos() {
 
         <div className="w-full h-[2px] bg-[#f37216] mb-5 rounded-full mt-4"></div>
 
-
-        <div className="flex justify-center gap-2 mb-8 flex-wrap">
+        <div className="flex overflow-x-auto mb-8 pb-4 gap-2 whitespace-nowrap [&::-webkit-scrollbar]:bg-[#f7f8fa] [&::-webkit-scrollbar-thumb]:bg-[#f7f8fa]">
           {categories.map((category) => (
             <button
               key={category}
@@ -191,77 +190,149 @@ export default function Photos() {
           ))}
         </div>
 
-        <div className="grid grid-cols-12 gap-4">
-          {/* Main Image */}
-          <div className="col-span-6">
-            <div
-              className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg cursor-pointer"
-              onClick={toggleLightbox}
-            >
-              <Image
-                src={photos.find(p => p.id === selectedImage)?.src || ''}
-                alt={photos.find(p => p.id === selectedImage)?.caption || ''}
-                fill
-                className="object-cover hover:scale-105 transition-transform duration-300"
-                sizes="600px"
-                priority
-                quality={100}
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-                <h3 className="text-white text-xl font-semibold">
-                  {photos.find(p => p.id === selectedImage)?.caption}
-                </h3>
-                <p className="text-white/90">
-                  {photos.find(p => p.id === selectedImage)?.date}
-                </p>
+        {windowWidth > 640 ? (
+          <div className="grid grid-cols-12 gap-4">
+            {/* Main Image */}
+            <div className="col-span-6">
+              <div
+                className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg cursor-pointer"
+                onClick={toggleLightbox}
+              >
+                <Image
+                  src={photos.find(p => p.id === selectedImage)?.src || ''}
+                  alt={photos.find(p => p.id === selectedImage)?.caption || ''}
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-300"
+                  sizes="600px"
+                  priority
+                  quality={100}
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                  <h3 className="text-white text-xl font-semibold">
+                    {photos.find(p => p.id === selectedImage)?.caption}
+                  </h3>
+                  <p className="text-white/90">
+                    {photos.find(p => p.id === selectedImage)?.date}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Thumbnail Navigation */}
-          <div className="col-span-6 flex h-full">
-            <button
-              onClick={scrollUp}
-              className="p-2 bg-white rounded-full shadow-md text-[#f37216] hover:bg-[#f37216] hover:text-white mr-4 self-center"
-              disabled={startIndex === 0}
-            >
-              <FaChevronLeft />
-            </button>
+            {/* Thumbnail Navigation */}
+            <div className="col-span-6 flex h-full">
+              <button
+                onClick={scrollUp}
+                className="p-2 bg-white rounded-full shadow-md text-[#f37216] hover:bg-[#f37216] hover:text-white mr-4 self-center"
+                disabled={startIndex === 0}
+              >
+                <FaChevronLeft />
+              </button>
 
-            <div className="flex-grow overflow-hidden">
-              <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 h-full ${windowWidth > 640 ? 'grid-cols-4' : 'grid-cols-1'}`}>
-                {filteredPhotos.slice(startIndex, startIndex + (windowWidth > 640 ? 12 : 1)).map((photo, index) => (
-                  <div
-                    key={photo.id}
-                    onClick={() => setSelectedImage(photo.id)}
-                    className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer transform hover:scale-105 transition-all duration-300 ${selectedImage === photo.id ? 'ring-2 ring-[#f37216]' : ''
-                      }`}
-                  >
-                    <Image
-                      src={photo.src}
-                      alt={photo.caption}
-                      fill
-                      className="object-cover"
-                      sizes="180px"
-                      quality={100}
-                      priority
-                      loading="eager"
-                    />
-                  </div>
-                ))}
+              <div className="flex-grow overflow-hidden">
+                <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 h-full ${windowWidth > 640 ? 'grid-cols-4' : 'grid-cols-1'}`}>
+                  {filteredPhotos.slice(startIndex, startIndex + (windowWidth > 640 ? 12 : 1)).map((photo, index) => (
+                    <div
+                      key={photo.id}
+                      onClick={() => setSelectedImage(photo.id)}
+                      className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer transform hover:scale-105 transition-all duration-300 ${selectedImage === photo.id ? 'ring-2 ring-[#f37216]' : ''
+                        }`}
+                    >
+                      <Image
+                        src={photo.src}
+                        alt={photo.caption}
+                        fill
+                        className="object-cover"
+                        sizes="180px"
+                        quality={100}
+                        priority
+                        loading="eager"
+                      />
+                    </div>
+                  ))}
+                </div>
+
               </div>
 
+              <button
+                onClick={scrollDown}
+                className="p-2 bg-white rounded-full shadow-md text-[#f37216] hover:bg-[#f37216] hover:text-white ml-4 self-center"
+                disabled={startIndex + (windowWidth > 640 ? 12 : 1) >= filteredPhotos.length}
+              >
+                <FaChevronRight />
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-4">
+            {/* Main Image */}
+            <div className="w-full">
+              <div
+                className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg cursor-pointer"
+                onClick={toggleLightbox}
+              >
+                <Image
+                  src={photos.find(p => p.id === selectedImage)?.src || ''}
+                  alt={photos.find(p => p.id === selectedImage)?.caption || ''}
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-300"
+                  sizes="600px"
+                  priority
+                  quality={100}
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                  <h3 className="text-white text-xl font-semibold">
+                    {photos.find(p => p.id === selectedImage)?.caption}
+                  </h3>
+                  <p className="text-white/90">
+                    {photos.find(p => p.id === selectedImage)?.date}
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <button
-              onClick={scrollDown}
-              className="p-2 bg-white rounded-full shadow-md text-[#f37216] hover:bg-[#f37216] hover:text-white ml-4 self-center"
-              disabled={startIndex + (windowWidth > 640 ? 12 : 1) >= filteredPhotos.length}
-            >
-              <FaChevronRight />
-            </button>
+            <div className="col-span-6 flex h-full">
+              <button
+                onClick={scrollUp}
+                className="p-2 bg-white rounded-full shadow-md text-[#f37216] hover:bg-[#f37216] hover:text-white mr-4 self-center"
+                disabled={startIndex === 0}
+              >
+                <FaChevronLeft />
+              </button>
+
+              <div className="flex-grow overflow-hidden">
+                <div className="grid grid-cols-3 gap-2 sm:gap-4 h-full">
+                  {filteredPhotos.slice(startIndex, startIndex + 3).map((photo, index) => (
+                    <div
+                      key={photo.id}
+                      onClick={() => setSelectedImage(photo.id)}
+                      className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer transform hover:scale-105 transition-all duration-300 ${selectedImage === photo.id ? 'ring-2 ring-[#f37216]' : ''
+                        }`}
+                    >
+                      <Image
+                        src={photo.src}
+                        alt={photo.caption}
+                        fill
+                        className="object-cover"
+                        sizes="180px"
+                        quality={100}
+                        priority
+                        loading="eager"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                onClick={scrollDown}
+                className="p-2 bg-white rounded-full shadow-md text-[#f37216] hover:bg-[#f37216] hover:text-white ml-4 self-center"
+                disabled={startIndex + 3 >= filteredPhotos.length}
+              >
+                <FaChevronRight />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Lightbox */}
