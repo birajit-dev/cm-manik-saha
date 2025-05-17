@@ -139,7 +139,7 @@ export default function App() {
             </Dropdown>
             <NavbarItem>
               <Link
-                href="#"
+                href="/press"
                 className="text-sm md:text-base font-semibold text-white hover:text-gray-100 transition-colors tracking-wide font-serif hover:scale-105 transform duration-200"
               >
                 Press
@@ -153,6 +153,17 @@ export default function App() {
                 Contact
               </Link>
             </NavbarItem>
+
+            <NavbarItem>
+              <Link
+                href="/myview"
+                className="text-sm md:text-base font-semibold text-white hover:text-gray-100 transition-colors tracking-wide font-serif hover:scale-105 transform duration-200"
+              >
+                My View
+              </Link>
+            </NavbarItem>
+
+            
           </NavbarContent>
 
           {/* Menu Button */}
