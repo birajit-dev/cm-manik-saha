@@ -15,20 +15,20 @@ export default function MyView() {
         <div className="grid md:grid-cols-2 gap-8">
           {[
             {
-              quote: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+              quote: `Success is not final, failure is not fatal: it is the courage to continue that counts.`,
               author: "Winston Churchill"
             },
             {
-              quote: "The future belongs to those who believe in the beauty of their dreams.",
+              quote: `The future belongs to those who believe in the beauty of their dreams.`,
               author: "Eleanor Roosevelt"  
             },
             {
-              quote: "The only way to do great work is to love what you do.",
+              quote: `The only way to do great work is to love what you do.`,
               author: "Steve Jobs"
             }
           ].map((item, index) => (
             <div key={index} className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-              <div className="text-6xl text-[#f37216] opacity-50 mb-4">"</div>
+              <div className="text-6xl text-[#f37216] opacity-50 mb-4">&quot;</div>
               <p className="text-gray-700 font-serif text-lg leading-relaxed mb-6 italic">
                 {item.quote}
               </p>

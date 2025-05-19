@@ -44,16 +44,16 @@ export default function AboutManikSaha() {
           <div className="prose prose-lg max-w-none">
             <h2 className="text-3xl font-semibold text-gray-900 mt-12 mb-6">Political Journey and Leadership</h2>
             <p className="text-lg leading-relaxed text-gray-700 mb-6">
-              Dr. Saha's political career has been marked by rapid ascension and significant achievements. After joining the BJP, he quickly rose through party ranks to become the State President of BJP Tripura. His dedication and leadership qualities led to his election to the Rajya Sabha in 2022, followed by his appointment as Chief Minister of Tripura in the same year. His effective governance and popular support resulted in his re-election as Chief Minister in 2023.
+              Dr. Saha&apos;s political career has been marked by rapid ascension and significant achievements. After joining the BJP, he quickly rose through party ranks to become the State President of BJP Tripura. His dedication and leadership qualities led to his election to the Rajya Sabha in 2022, followed by his appointment as Chief Minister of Tripura in the same year. His effective governance and popular support resulted in his re-election as Chief Minister in 2023.
             </p>
 
             <h2 className="text-3xl font-semibold text-gray-900 mt-12 mb-6">Achievements and Vision</h2>
             <p className="text-lg leading-relaxed text-gray-700 mb-6">
-              Under Dr. Saha's leadership, Tripura has seen significant progress in various sectors. He has strengthened the healthcare infrastructure, leveraging his medical background to improve health services across the state. His administration has focused on educational development, promoting sustainable practices, and enhancing connectivity and infrastructure. Notable attention has been given to boosting tourism and preserving the rich cultural heritage of Tripura.
+              Under Dr. Saha&apos;s leadership, Tripura has seen significant progress in various sectors. He has strengthened the healthcare infrastructure, leveraging his medical background to improve health services across the state. His administration has focused on educational development, promoting sustainable practices, and enhancing connectivity and infrastructure. Notable attention has been given to boosting tourism and preserving the rich cultural heritage of Tripura.
             </p>
 
             <p className="text-lg leading-relaxed text-gray-700 mb-6">
-              Looking ahead, Dr. Saha's vision for Tripura encompasses comprehensive development across multiple domains. His administration is committed to promoting industrial development and creating employment opportunities, ensuring inclusive growth and improved quality of life for all citizens, and developing world-class infrastructure and connectivity throughout the state.
+              Looking ahead, Dr. Saha&apos;s vision for Tripura encompasses comprehensive development across multiple domains. His administration is committed to promoting industrial development and creating employment opportunities, ensuring inclusive growth and improved quality of life for all citizens, and developing world-class infrastructure and connectivity throughout the state.
             </p>
           </div>
         </article>

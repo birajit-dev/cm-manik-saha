@@ -5,7 +5,6 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const Timeline = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [previousIndex, setPreviousIndex] = useState(0);
   
   const timelineEvents = [
     {
@@ -51,20 +50,17 @@ const Timeline = () => {
   ];
 
   const handleYearClick = (index: number) => {
-    setPreviousIndex(currentIndex);
     setCurrentIndex(index);
   };
 
   const scrollLeft = () => {
     if (currentIndex > 0) {
-      setPreviousIndex(currentIndex);
       setCurrentIndex(currentIndex - 1);
     }
   };
 
   const scrollRight = () => {
     if (currentIndex < timelineEvents.length - 1) {
-      setPreviousIndex(currentIndex);
       setCurrentIndex(currentIndex + 1);
     }
   };

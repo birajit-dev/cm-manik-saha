@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { FaSearch, FaChevronRight, FaChevronLeft, FaTimes, FaCamera, FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import { FaChevronRight, FaChevronLeft, FaTimes, FaCamera } from 'react-icons/fa';
 
 export default function Photos() {
   const [selectedImage, setSelectedImage] = useState<number>(1);
@@ -166,12 +166,12 @@ export default function Photos() {
     <section className="py-10 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-gray-50 to-gray-100">
       <div className="max-w-7xl mx-auto">
 
-        <h2 className="text-2xl md:text-2xl font-bold font-serif text-left">
+        <a href="/gallery/image" className="text-2xl md:text-2xl font-bold font-serif text-left">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#f37216] to-[#5DB996] relative inline-flex items-center gap-4 border-2 border-[#f37216] rounded-lg p-2">
             <FaCamera className="text-[#f37216]" />
             Photo Gallery
           </span>
-        </h2>
+        </a>
 
         <div className="w-full h-[2px] bg-[#f37216] mb-5 rounded-full mt-4"></div>
 
@@ -230,7 +230,7 @@ export default function Photos() {
 
               <div className="flex-grow overflow-hidden">
                 <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 h-full ${windowWidth > 640 ? 'grid-cols-4' : 'grid-cols-1'}`}>
-                  {filteredPhotos.slice(startIndex, startIndex + (windowWidth > 640 ? 12 : 1)).map((photo, index) => (
+                  {filteredPhotos.slice(startIndex, startIndex + (windowWidth > 640 ? 12 : 1)).map((photo) => (
                     <div
                       key={photo.id}
                       onClick={() => setSelectedImage(photo.id)}
@@ -301,7 +301,7 @@ export default function Photos() {
 
               <div className="flex-grow overflow-hidden">
                 <div className="grid grid-cols-3 gap-2 sm:gap-4 h-full">
-                  {filteredPhotos.slice(startIndex, startIndex + 3).map((photo, index) => (
+                  {filteredPhotos.slice(startIndex, startIndex + 3).map((photo) => (
                     <div
                       key={photo.id}
                       onClick={() => setSelectedImage(photo.id)}

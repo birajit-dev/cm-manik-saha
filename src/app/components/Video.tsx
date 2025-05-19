@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { FaPlay, FaCalendarAlt } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
+import Image from 'next/image';
 
 const Video = () => {
   const [selectedVideo, setSelectedVideo] = useState<number>(1);
@@ -43,11 +44,11 @@ const Video = () => {
   return (
     <section className="py-10 px-2 md:px-8 lg:px-16 bg-gray-200">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl md:text-2xl font-bold mb-1 font-serif text-left">
+        <a href="/gallery/video" className="text-2xl md:text-2xl font-bold mb-1 font-serif text-left">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#f37216] to-[#5DB996] relative border-2 border-[#f37216] rounded-lg p-2">
             Video Gallery
           </span>
-        </h2>
+        </a>
 
 
         <div className="w-full h-[2px] bg-[#f37216] mb-10 rounded-full mt-4"></div>
@@ -60,10 +61,12 @@ const Video = () => {
               className="relative aspect-video rounded-xl overflow-hidden shadow-2xl cursor-pointer"
               onClick={handleVideoClick}
             >
-              <img
-                src={videos.find(v => v.id === selectedVideo)?.thumbnail}
-                alt={videos.find(v => v.id === selectedVideo)?.title}
-                className="w-full h-full object-cover"
+              <Image
+                src={videos.find(v => v.id === selectedVideo)?.thumbnail || ''}
+                alt={videos.find(v => v.id === selectedVideo)?.title || ''}
+                fill
+                className="object-cover"
+                priority
               />
               <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                 <FaPlay className="text-white text-5xl hover:scale-110 transition-transform duration-300" />
@@ -93,10 +96,11 @@ const Video = () => {
                   }`}
               >
                 <div className="relative w-44 aspect-video rounded-lg overflow-hidden flex-shrink-0">
-                  <img
+                  <Image
                     src={video.thumbnail}
                     alt={video.title}
-                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    fill
+                    className="object-cover transform group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20 group-hover:from-black/70 group-hover:to-black/30 transition-all duration-300 flex items-center justify-center">
                     <FaPlay className="text-white group-hover:scale-125 transition-transform duration-300" size={24} />

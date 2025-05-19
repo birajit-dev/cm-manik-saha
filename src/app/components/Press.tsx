@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+
 import Image from 'next/image';
 import { FaShare, FaCalendar } from 'react-icons/fa';
 
@@ -45,15 +45,16 @@ export default function Press() {
   return (
     <section className="py-16 px-4 md:px-8 lg:px-16 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl md:text-2xl font-bold border-2 border-[#f37216] text-[#f37216] inline-block px-6 py-3 rounded-lg mb-8 text-centre font-serif hover:border-[#5DB996] hover:text-[#5DB996] transition-colors duration-300">
+        <a href="/press" className="text-2xl md:text-2xl font-bold border-2 border-[#f37216] text-[#f37216] inline-block px-6 py-3 rounded-lg mb-8 text-centre font-serif hover:border-[#5DB996] hover:text-[#5DB996] transition-colors duration-300">
           Press Releases
-        </h2>
+        </a>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {pressReleases.map((item) => (
             <div 
               key={item.id}
-              className="bg-[#F1F0E8] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="bg-[#F1F0E8] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+              onClick={() => window.location.href = `/press/${item.id}`}
             >
               <div className="relative h-48 w-full">
                 <Image
@@ -89,7 +90,10 @@ export default function Press() {
                   </div>
                   
                   <button 
-                    onClick={() => handleShare(item.headline)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleShare(item.headline);
+                    }}
                     className="text-[#f37216] hover:text-[#5DB996] transition-colors duration-300"
                     aria-label="Share"
                   >

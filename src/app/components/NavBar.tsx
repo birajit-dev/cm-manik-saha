@@ -1,22 +1,7 @@
 'use client';
 import { useState } from 'react';
-import {
-  Image,
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Link,
-  Button,
-  DropdownItem,
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from '@nextui-org/react';
+import Image from 'next/image';
+import {  Navbar,  NavbarBrand,  NavbarContent,  NavbarItem,  Link,  Button,  DropdownItem,  Dropdown,  DropdownTrigger,  DropdownMenu,} from '@nextui-org/react';
 import { ChevronDown, Lock, Activity, Flash, Server, TagUser, Scale } from './Icons';
 
 export default function App() {
@@ -33,6 +18,7 @@ export default function App() {
     server: <Server className="text-success" fill="currentColor" size={30} height={30} width={30} />,
     user: <TagUser className="text-danger" fill="currentColor" size={100} height={30} width={100} />,
   };
+  
   const toggleSection = (section: string) => {
     setExpandedSections((prev) => ({
       ...prev,
@@ -42,7 +28,7 @@ export default function App() {
 
   const renderToggleButton = (section: string) => (
     <button
-      className="text-lg font-bold"
+      className="text-lg font-bold transition-transform duration-200 hover:scale-110"
       onClick={() => toggleSection(section)}
     >
       {expandedSections[section] ? "−" : "+"}
@@ -58,25 +44,23 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col bg-[#ff7e54] md:flex-row w-full relative">
+    <div className="flex flex-col bg-gradient-to-r from-[#ff6b3d] to-[#ff9172] md:flex-row w-full relative shadow-lg font-['Playfair_Display']">
       {/* Left Section */}
-      <div className="w-full md:w-[30%] relative z-20 flex justify-between">
+      <div className="w-full md:w-[30%] relative z-20 flex justify-between backdrop-blur-sm">
         <Navbar className="bg-transparent">
           <NavbarBrand className="md:justify-end md:items-center justify-between items-center">
-            <div className="flex items-center gap-2">
-
-              <img
+            <a href="/" className="flex items-center gap-2 transition-transform duration-300 hover:scale-105">
+              <Image
                 src="/images/nav/image1.png"
                 alt="Slide 1"
-                className="w-full h-full object-cover"
+                width={100}
+                height={100}
+                className="object-cover rounded-lg shadow-md"
+                priority
               />
-
-              {/* <span className="text-xl font-extrabold font-serif tracking-wide text-white hover:text-gray-100 transition-colors">
-                Professor (Dr.) Manik Saha
-              </span> */}
-            </div>
+            </a>
             <div className="flex md:hidden">
-              <Button onClick={toggleMobileMenu} className="p-2 bg-transparent text-white text-2xl">
+              <Button onClick={toggleMobileMenu} className="p-2 bg-white/10 backdrop-blur-md text-white text-2xl rounded-full hover:bg-white/20 transition-all duration-300 font-['Montserrat']">
                 {isMobileMenuOpen ? '✖' : '☰'}
               </Button>
             </div>
@@ -85,22 +69,22 @@ export default function App() {
       </div>
 
       {/* Right Section */}
-      <div className="w-full md:w-[70%] bg-[#ff7e54] relative z-0 hidden md:block">
+      <div className="w-full md:w-[70%] bg-transparent relative z-0 hidden md:block backdrop-blur-sm">
         <Navbar className="bg-transparent">
-          <NavbarContent className="hidden sm:flex gap-4" justify="end">
+          <NavbarContent className="hidden sm:flex gap-6" justify="end">
             <NavbarItem isActive>
               <Link
-                href="#"
+                href="/"
                 aria-current="page"
-                className="text-sm md:text-base font-semibold text-white hover:text-gray-100 transition-colors tracking-wide font-serif hover:scale-105 transform duration-200"
+                className="text-sm md:text-base font-semibold text-white hover:text-gray-100 transition-all duration-300 tracking-wide font-['Montserrat'] hover:scale-110 transform relative after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-white after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
               >
                 Home
               </Link>
             </NavbarItem>
             <NavbarItem>
               <Link
-                href="#"
-                className="text-sm md:text-base font-semibold text-white hover:text-gray-100 transition-colors tracking-wide font-serif hover:scale-105 transform duration-200"
+                href="/about-manik-saha"
+                className="text-sm md:text-base font-semibold text-white hover:text-gray-100 transition-all duration-300 tracking-wide font-['Montserrat'] hover:scale-110 transform relative after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-white after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
               >
                 About
               </Link>
@@ -110,7 +94,7 @@ export default function App() {
                 <DropdownTrigger>
                   <Button
                     disableRipple
-                    className="text-sm md:text-base font-semibold text-white hover:text-gray-100 transition-colors tracking-wide font-serif hover:scale-105 transform duration-200"
+                    className="text-sm md:text-base font-semibold text-white hover:text-gray-100 transition-all duration-300 tracking-wide font-['Montserrat'] hover:scale-110 transform bg-transparent"
                     endContent={icons.chevron}
                     radius="sm"
                     variant="light"
@@ -121,54 +105,48 @@ export default function App() {
               </NavbarItem>
               <DropdownMenu
                 aria-label="Gallery"
-                className="w-[280px] md:w-[340px]"
+                className="w-[280px] md:w-[340px] bg-white/90 backdrop-blur-md font-['Montserrat']"
                 itemClasses={{
-                  base: 'gap-4',
+                  base: 'gap-4 hover:bg-gray-100 transition-colors duration-200',
                 }}
               >
-                <DropdownItem key="autoscaling" startContent={icons.scale}>
-                  Autoscaling
+                <DropdownItem key="timeline" startContent={icons.scale} href="/gallery/image">
+                  Photo Gallery
                 </DropdownItem>
-                <DropdownItem key="usage_metrics" startContent={icons.activity}>
-                  Usage Metrics
-                </DropdownItem>
-                <DropdownItem key="production_ready" startContent={icons.flash}>
-                  Production Ready
+                <DropdownItem key="election-rally" startContent={icons.activity} href="/gallery/video">
+                  Video Gallery
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
             <NavbarItem>
               <Link
                 href="/press"
-                className="text-sm md:text-base font-semibold text-white hover:text-gray-100 transition-colors tracking-wide font-serif hover:scale-105 transform duration-200"
+                className="text-sm md:text-base font-semibold text-white hover:text-gray-100 transition-all duration-300 tracking-wide font-['Montserrat'] hover:scale-110 transform relative after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-white after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
               >
                 Press
               </Link>
             </NavbarItem>
             <NavbarItem>
               <Link
-                href="#"
-                className="text-sm md:text-base font-semibold text-white hover:text-gray-100 transition-colors tracking-wide font-serif hover:scale-105 transform duration-200"
+                href="/contact"
+                className="text-sm md:text-base font-semibold text-white hover:text-gray-100 transition-all duration-300 tracking-wide font-['Montserrat'] hover:scale-110 transform relative after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-white after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
               >
                 Contact
               </Link>
             </NavbarItem>
-
             <NavbarItem>
               <Link
                 href="/myview"
-                className="text-sm md:text-base font-semibold text-white hover:text-gray-100 transition-colors tracking-wide font-serif hover:scale-105 transform duration-200"
+                className="text-sm md:text-base font-semibold text-white hover:text-gray-100 transition-all duration-300 tracking-wide font-['Montserrat'] hover:scale-110 transform relative after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-white after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
               >
                 My View
               </Link>
             </NavbarItem>
-
-            
           </NavbarContent>
 
           {/* Menu Button */}
           <div className="flex">
-            <Button onClick={toggleDetailsMenu} className="p-2 bg-transparent text-white text-2xl">
+            <Button onClick={toggleDetailsMenu} className="p-2 bg-white/10 backdrop-blur-md text-white text-2xl rounded-full hover:bg-white/20 transition-all duration-300 font-['Montserrat']">
               {isDetailsMenuOpen ? '✖' : '☰'}
             </Button>
           </div>
@@ -176,104 +154,80 @@ export default function App() {
       </div>
 
       {/* Full-Screen Menu */}
-      <div className={`fixed inset-0 z-50 bg-[#f2f2f2] transition-opacity duration-300 ease-in-out ${isDetailsMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}>
-        <div className="container mx-auto px-4">
+      <div className={`fixed inset-0 z-50 bg-gradient-to-br from-[#ff6b3d] to-[#ff9172] transition-all duration-500 ease-in-out font-['Playfair_Display'] ${isDetailsMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <div className="container mx-auto px-4 backdrop-blur-sm">
           <div className="flex justify-end pt-4">
             <Button
               onClick={toggleDetailsMenu}
-              className="text-black text-4xl font-bold hover:text-gray-600 p-2 bg-transparent transition-colors duration-200"
+              className="text-white text-4xl font-bold hover:text-gray-200 p-2 bg-transparent transition-all duration-300 hover:scale-110"
             >
               ✖
             </Button>
           </div>
           <div className="grid grid-cols-4 gap-8 mt-16 px-8">
-            {/* First Row */}
             <div className="flex flex-col gap-4">
-              <h2 className="text-2xl font-bold mb-4">PRESS</h2>
-              <Link href="#" className="text-lg hover:text-gray-600">News</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Interviews</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Editorials</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Critic</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Press Release</Link>
-            </div>
-            <div className="flex flex-col gap-4">
-              <h2 className="text-2xl font-bold mb-4">MY VIEWS</h2>
-              <Link href="#" className="text-lg hover:text-gray-600">Quotes</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Blogs</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Articles</Link>
-            </div>
-            <div className="flex flex-col gap-4">
-              <h2 className="text-2xl font-bold mb-4">GALLERY</h2>
-              <Link href="#" className="text-lg hover:text-gray-600">Timeline</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Election Rally</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Government Events</Link>
-            </div>
-            <div className="flex flex-col gap-4">
-              <h2 className="text-2xl font-bold mb-4">HOME</h2>
-              <Link href="#" className="text-lg hover:text-gray-600">Dashboard</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Overview</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Profile</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Settings</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Analytics</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Reports</Link>
-            </div>
-
-            {/* Second Row */}
-            <div className="flex flex-col gap-4">
-              <h2 className="text-2xl font-bold mb-4">EXPLORE</h2>
-              <Link href="#" className="text-lg hover:text-gray-600">Discover</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Trending</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Popular</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Featured</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Recommended</Link>
-            </div>
-            <div className="flex flex-col gap-4">
-              <h2 className="text-2xl font-bold mb-4">EVENTS</h2>
-              <Link href="#" className="text-lg hover:text-gray-600">Latest</Link>
-              <Link href="#" className="text-lg hover:text-gray-600">Upcoming Events</Link>
-            </div>
-            <div className="flex flex-col gap-4">
-              <h2 className="text-2xl font-bold mb-4">LATEST PRESS</h2>
+              <h2 className="text-2xl font-bold mb-4 text-white">PRESS</h2>
+              <Link href="/press" className="text-lg text-white/90 hover:text-white transition-all duration-200 hover:translate-x-2">News</Link>
+              <Link href="/press#interviews" className="text-lg text-white/90 hover:text-white transition-all duration-200 hover:translate-x-2">Interviews</Link>
+              <Link href="/press#editorials" className="text-lg text-white/90 hover:text-white transition-all duration-200 hover:translate-x-2">Editorials</Link>
+              <Link href="/press#critic" className="text-lg text-white/90 hover:text-white transition-all duration-200 hover:translate-x-2">Critic</Link>
+              <Link href="/press#press-release" className="text-lg text-white/90 hover:text-white transition-all duration-200 hover:translate-x-2">Press Release</Link>
             </div>
           </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <div className={`fixed inset-0 z-50 bg-[#f2f2f2] transition-transform duration-500 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="container mx-auto px-4">
+      <div className={`fixed inset-0 z-50 bg-gradient-to-br from-[#ff6b3d] to-[#ff9172] transition-transform duration-500 ease-in-out font-['Playfair_Display'] ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="container mx-auto px-4 backdrop-blur-sm">
           <div className="flex justify-end pt-4">
             <Button
               onClick={toggleMobileMenu}
-              className="text-black text-2xl hover:text-gray-600 p-2 bg-transparent transition-colors duration-200 ease-in-out"
+              className="text-white text-2xl hover:text-gray-200 p-2 bg-transparent transition-all duration-300 hover:scale-110"
             >
               ✖
             </Button>
           </div>
-          <div className="flex flex-col items-start mt-16 px-8 transition-opacity duration-500 ease-in-out">
-            <Link href="#" className="text-lg text-black hover:text-gray-600 mb-4 transition-colors duration-200 ease-in-out transform hover:scale-105">Home</Link>
-            <Link href="#" className="text-lg text-black hover:text-gray-600 mb-4 transition-colors duration-200 ease-in-out transform hover:scale-105">About</Link>
-            {/* <Link
-  href="#"
-  className="text-lg text-black hover:text-gray-600 mb-4 transition-colors duration-200 ease-in-out transform hover:scale-105"
->
-  Gallery
-</Link> */}
-            <Link href="#" className="text-lg text-black hover:text-gray-600 mb-4 transition-colors duration-200 ease-in-out transform hover:scale-105">Press</Link>
-            <Link href="#" className="text-lg text-black hover:text-gray-600 mb-4 transition-colors duration-200 ease-in-out transform hover:scale-105">Contact</Link>
+          <div className="flex flex-col items-start mt-16 px-8">
+            <Link href="/" className="text-lg text-white hover:text-gray-200 mb-4 transition-all duration-300 hover:translate-x-2 transform">Home</Link>
+            <Link href="/about-manik-saha" className="text-lg text-white hover:text-gray-200 mb-4 transition-all duration-300 hover:translate-x-2 transform">About</Link>
+            <Link href="/press" className="text-lg text-white hover:text-gray-200 mb-4 transition-all duration-300 hover:translate-x-2 transform">Press</Link>
+            <Link href="/contact" className="text-lg text-white hover:text-gray-200 mb-4 transition-all duration-300 hover:translate-x-2 transform">Contact</Link>
 
             {[
-              { title: "Gallery", items: ["Timeline", "Election Rally", "Government Events"] },
-              { title: "Press", items: ["News", "Interviews", "Editorials", "Critic", "Press Release"] },
-              { title: "My Views", items: ["Quotes", "Blogs", "Articles"] },
-              { title: "Explore", items: ["Discover", "Trending", "Popular", "Featured", "Recommended"] },
-              { title: "Events", items: ["Latest", "Upcoming Events"] },
-              { title: "Latest Press", items: [] }, // Add items if necessary
+              { title: "Gallery", items: [
+                { name: "Photo Gallery", href: "/gallery/image" },
+                { name: "Video", href: "/gallery/video" },
+                { name: "Government Events", href: "/gallery/government-events" }
+              ]},
+              { title: "Press", items: [
+                { name: "News", href: "/press#news" },
+                { name: "Interviews", href: "/press#interviews" },
+                { name: "Editorials", href: "/press#editorials" },
+                { name: "Critic", href: "/press#critic" },
+                { name: "Press Release", href: "/press#press-release" }
+              ]},
+              { title: "My Views", items: [
+                { name: "Quotes", href: "/myview/quotes" },
+                { name: "Blogs", href: "/myview/blogs" },
+                { name: "Articles", href: "/myview/articles" }
+              ]},
+              { title: "Explore", items: [
+                { name: "Discover", href: "/explore/discover" },
+                { name: "Trending", href: "/explore/trending" },
+                { name: "Popular", href: "/explore/popular" },
+                { name: "Featured", href: "/explore/featured" },
+                { name: "Recommended", href: "/explore/recommended" }
+              ]},
+              { title: "Events", items: [
+                { name: "Latest", href: "/events/latest" },
+                { name: "Upcoming Events", href: "/events/upcoming" }
+              ]},
+              { title: "Latest Press", items: [] },
             ].map(({ title, items }, index) => (
               <div key={index} className="w-full mb-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-lg hover:text-gray-600 transition-colors duration-200 ease-in-out">
+                <div className="flex items-center justify-between text-white">
+                  <span className="text-lg hover:text-gray-200 transition-all duration-300">
                     {title}
                   </span>
                   {renderToggleButton(title)}
@@ -281,15 +235,14 @@ export default function App() {
                 {expandedSections[title] && (
                   <div className="m-0 py-[10px]">
                     {items.map((item, idx) => (
-                      <Link href="#" key={idx} className="text-md hover:text-gray-600 mb-2 block">
-                        {item}
+                      <Link href={item.href} key={idx} className="text-md text-white/90 hover:text-white mb-2 block transition-all duration-200 hover:translate-x-2">
+                        {item.name}
                       </Link>
                     ))}
                   </div>
                 )}
               </div>
             ))}
-
           </div>
         </div>
       </div>

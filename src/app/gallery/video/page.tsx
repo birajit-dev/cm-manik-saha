@@ -1,12 +1,13 @@
 'use client';
+import React from 'react';
 import { useState } from 'react';
-import { FaPlay, FaShare, FaCalendar, FaHome } from 'react-icons/fa';
+import { FaPlay, FaShare, FaCalendar, FaTimes } from 'react-icons/fa';
 import Image from 'next/image';
-import Link from 'next/link';
 
 export default function VideoGallery() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedVideo, setSelectedVideo] = useState<null | {id: number, url: string, title: string}>(null);
   const itemsPerPage = 8;
 
   const videos = [
@@ -15,14 +16,16 @@ export default function VideoGallery() {
       thumbnail: '/images/thumbnail/thumb-1.jpg',
       title: 'CM Dr. Manik Saha Addresses Public Meeting',
       category: 'Public Events',
-      date: '2024-01-15'
+      date: '2024-01-15',
+      url: '/videos/video-1.mp4' // Add actual video URL
     },
     {
       id: 2,
       thumbnail: '/images/thumbnail/thumb-2.jpg', 
       title: 'Development Projects in Tripura',
       category: 'Development',
-      date: '2024-01-12'
+      date: '2024-01-12',
+      url: '/videos/video-2.mp4' // Add actual video URL
     },
     // Add more video items as needed
   ];
@@ -48,8 +51,40 @@ export default function VideoGallery() {
     }
   };
 
+  const openVideoModal = (video: {id: number, url: string, title: string}) => {
+    setSelectedVideo(video);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeVideoModal = () => {
+    setSelectedVideo(null);
+    document.body.style.overflow = 'unset';
+  };
+
   return (
     <>
+      {selectedVideo && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
+          <div className="relative w-full max-w-4xl bg-black rounded-lg overflow-hidden">
+            <button
+              onClick={closeVideoModal}
+              className="absolute top-4 right-4 text-white hover:text-gray-300 z-10"
+              aria-label="Close modal"
+            >
+              <FaTimes size={24} />
+            </button>
+            <video
+              src={selectedVideo.url}
+              controls
+              autoPlay
+              className="w-full"
+              title={selectedVideo.title}
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      )}
       
       <section className="py-16 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
@@ -82,6 +117,7 @@ export default function VideoGallery() {
             {paginatedVideos.map((video) => (
               <div 
                 key={video.id}
+                onClick={() => openVideoModal({id: video.id, url: video.url, title: video.title})}
                 className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 cursor-pointer"
               >
                 <div className="relative">
@@ -89,10 +125,11 @@ export default function VideoGallery() {
                     {video.title}
                   </h3>
                   <div className="relative h-48">
-                    <img
+                    <Image
                       src={video.thumbnail}
                       alt={video.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                       <div className="w-12 h-12 rounded-full bg-[#f37216] flex items-center justify-center">
