@@ -2,40 +2,46 @@
 
 import Image from 'next/image';
 import { FaShare, FaCalendar } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
+
+interface PressRelease {
+  _id: string;
+  title: string;
+  date: string;
+  thumbnail: string;
+  content: string;
+  source: string;
+  author: string;
+  tags: string[];
+  link: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+}
 
 export default function Press() {
-  const pressReleases = [
-    {
-      id: 1,
-      image: '/images/press/press-1.png',
-      headline: 'CM Dr. Manik Saha Inaugurates New Healthcare Facility',
-      date: '2024-01-15',
-    },
-    {
-      id: 2, 
-      image: '/images/press/press-1.png',
-      headline: 'Education Reform Initiative Launched in Tripura',
-      date: '2024-01-12',
-    },
-    {
-      id: 3,
-      image: '/images/press/press-1.png', 
-      headline: 'Infrastructure Development Project Announced',
-      date: '2024-01-10',
-    },
-    {
-      id: 4,
-      image: '/images/press/press-1.png',
-      headline: 'Cultural Program Celebrates Tripuras Heritage',
-      date: '2024-01-08',
-    }
-  ];
+  const [pressReleases, setPressReleases] = useState<PressRelease[]>([]);
 
-  const handleShare = (headline: string) => {
+  useEffect(() => {
+    const fetchPressReleases = async () => {
+      try {
+        const response = await fetch('http://localhost:3002/api/v1/press');
+        const data = await response.json();
+        setPressReleases(data);
+      } catch (error) {
+        console.error('Error fetching press releases:', error);
+      }
+    };
+
+    fetchPressReleases();
+  }, []);
+
+  const handleShare = (title: string) => {
     if (navigator.share) {
       navigator.share({
-        title: headline,
-        text: headline,
+        title: title,
+        text: title,
         url: window.location.href,
       })
       .catch((error) => console.log('Error sharing:', error));
@@ -52,14 +58,14 @@ export default function Press() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {pressReleases.map((item) => (
             <div 
-              key={item.id}
+              key={item._id}
               className="bg-[#F1F0E8] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-              onClick={() => window.location.href = `/press/${item.id}`}
+              onClick={() => window.location.href = `/press/${item._id}`}
             >
               <div className="relative h-48 w-full">
                 <Image
-                  src={item.image}
-                  alt={item.headline}
+                  src={`http://localhost:3002${item.thumbnail}`}
+                  alt={item.title}
                   fill
                   quality={100}
                   priority
@@ -74,25 +80,19 @@ export default function Press() {
               
               <div className="p-4">
                 <h3 className="text-lg font-semibold text-gray-800 mb-2 font-serif">
-                  {item.headline}
+                  {item.title}
                 </h3>
                 
                 <div className="flex justify-between items-center mt-4">
                   <div className="flex items-center text-gray-600">
                     <FaCalendar className="mr-2" />
-                    <span className="text-sm">
-                      {new Date(item.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric'
-                      })}
-                    </span>
+                    <span className="text-sm">{item.date}</span>
                   </div>
                   
                   <button 
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleShare(item.headline);
+                      handleShare(item.title);
                     }}
                     className="text-[#f37216] hover:text-[#5DB996] transition-colors duration-300"
                     aria-label="Share"

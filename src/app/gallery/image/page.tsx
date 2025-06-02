@@ -1,49 +1,30 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FaDownload, FaImages, FaTimes } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import Select, { StylesConfig } from 'react-select';
 
 interface ImageData {
-  id: number;
-  src: string;
+  _id: string;
   title: string;
-  date: string;
+  qr_code: string;
+  permalink: string;
   eventType: string;
-  relatedImages?: string[];
+  date: string;
+  images: {
+    url: string;
+    caption: string;
+    _id: string;
+  }[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface FilterOption {
   value: string;
   label: string;
 }
-
-const imageGallery: ImageData[] = [
-  {
-    id: 1,
-    src: '/images/gallery/image1.jpg',
-    title: 'BJP Rally 2023',
-    date: '2023-12-01',
-    eventType: 'Political Rally',
-    relatedImages: [
-      '/images/gallery/image1-1.jpg',
-      '/images/gallery/image1-2.jpg',
-      '/images/gallery/image1-3.jpg',
-    ]
-  },
-  {
-    id: 2,
-    src: '/images/gallery/image2.jpg',
-    title: 'Meeting with Party Workers',
-    date: '2023-11-28',
-    eventType: 'Internal Meeting',
-    relatedImages: [
-      '/images/gallery/image2-1.jpg',
-      '/images/gallery/image2-2.jpg',
-    ]
-  },
-];
 
 const ImageCard = ({ image, onSelect, onDownload }: { 
   image: ImageData;
@@ -62,7 +43,7 @@ const ImageCard = ({ image, onSelect, onDownload }: {
     >
       <div className="relative h-60 sm:h-80 cursor-pointer" onClick={onSelect}>
         <Image
-          src={image.src}
+          src={`http://localhost:3002${image.images[0].url}`}
           alt={image.title}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -75,10 +56,10 @@ const ImageCard = ({ image, onSelect, onDownload }: {
           <h3 className="text-base sm:text-xl font-semibold">{image.title}</h3>
         </div>
 
-        {image.relatedImages && (
+        {image.images && (
           <div className="absolute top-4 right-4 bg-white/90 text-[#f37216] px-3 sm:px-4 py-1 sm:py-2 rounded-full flex items-center gap-2 shadow-lg backdrop-blur-sm">
             <FaImages className="text-sm sm:text-lg" />
-            <span className="text-sm sm:text-base font-semibold">{image.relatedImages.length + 1}</span>
+            <span className="text-sm sm:text-base font-semibold">{image.images.length}</span>
           </div>
         )}
         
@@ -101,8 +82,6 @@ const Modal = ({ image, isOpen, onClose, onDownload }: {
   onClose: () => void;
   onDownload: (src: string, title: string) => void;
 }) => {
-  const allImages = image ? [image.src, ...(image.relatedImages || [])] : [];
-
   return (
     <AnimatePresence>
       {isOpen && image && (
@@ -126,11 +105,11 @@ const Modal = ({ image, isOpen, onClose, onDownload }: {
             </button>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
-              {allImages.map((src, index) => (
-                <div key={src} className="relative aspect-video">
+              {image.images.map((img) => (
+                <div key={img._id} className="relative aspect-video">
                   <Image
-                    src={src}
-                    alt={`${image.title} - ${index + 1}`}
+                    src={`http://localhost:3002${img.url}`}
+                    alt={`${image.title} - ${img._id}`}
                     fill
                     className="object-cover rounded-lg"
                     priority
@@ -138,7 +117,7 @@ const Modal = ({ image, isOpen, onClose, onDownload }: {
                   <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    onClick={() => onDownload(src, `${image.title}-${index + 1}`)}
+                    onClick={() => onDownload(`http://localhost:3002${img.url}`, `${image.title}-${img._id}`)}
                     className="absolute bottom-2 right-2 bg-[#f37216] text-white p-1.5 sm:p-2 rounded-full hover:bg-[#d65c0d] shadow-lg"
                   >
                     <FaDownload className="text-xs sm:text-sm" />
@@ -154,10 +133,25 @@ const Modal = ({ image, isOpen, onClose, onDownload }: {
 };
 
 export default function ImageGallery() {
+  const [photos, setPhotos] = useState<ImageData[]>([]);
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('newest');
   const [selectedImage, setSelectedImage] = useState<ImageData | null>(null);
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      try {
+        const response = await fetch('http://localhost:3002/api/v1/photos');
+        const data = await response.json();
+        setPhotos(data);
+      } catch (error) {
+        console.error('Error fetching photos:', error);
+      }
+    };
+
+    fetchPhotos();
+  }, []);
 
   const handleDownload = (imageSrc: string, title: string) => {
     const link = document.createElement('a');
@@ -168,18 +162,18 @@ export default function ImageGallery() {
     document.body.removeChild(link);
   };
 
-  const filteredAndSortedImages = imageGallery
-    .filter(img => selectedFilter === 'all' ? true : img.eventType === selectedFilter)
+  const filteredAndSortedImages = photos
+    .filter(img => selectedFilter === 'all' ? true : img.title === selectedFilter)
     .sort((a, b) => sortBy === 'newest' 
       ? new Date(b.date).getTime() - new Date(a.date).getTime()
       : new Date(a.date).getTime() - new Date(b.date).getTime()
     );
 
-  const uniqueEventTypes = Array.from(new Set(imageGallery.map(img => img.eventType)));
+  const uniqueTitles = Array.from(new Set(photos.map(img => img.title)));
 
   const filterOptions: FilterOption[] = [
     { value: 'all', label: 'All Engagements' },
-    ...uniqueEventTypes.map(type => ({ value: type, label: type }))
+    ...uniqueTitles.map(title => ({ value: title, label: title }))
   ];
 
   const sortOptions: FilterOption[] = [
@@ -273,7 +267,7 @@ export default function ImageGallery() {
           <AnimatePresence>
             {filteredAndSortedImages.map((image) => (
               <ImageCard
-                key={image.id}
+                key={image._id}
                 image={image}
                 onSelect={() => {
                   setSelectedImage(image);
@@ -281,7 +275,7 @@ export default function ImageGallery() {
                 }}
                 onDownload={(e) => {
                   e.stopPropagation();
-                  handleDownload(image.src, image.title);
+                  handleDownload(`http://localhost:3002${image.images[0].url}`, image.title);
                 }}
               />
             ))}
